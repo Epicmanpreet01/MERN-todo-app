@@ -6,7 +6,7 @@ export const updateUser = async (req, res) => {
   const userId = req.user;
   const { userName, email, newPassword, currentPassword } = req.body;
   let { profileImage } = req.body;
-  hashPassword = null;
+  let hashPassword = null;
   try {
     const user = await User.findById(userId);
 
@@ -14,17 +14,20 @@ export const updateUser = async (req, res) => {
 
     if (userName) {
       const userNameExists = await User.findOne({ userName });
-      if (!userNameExists && userNameExists !== user)
+      if (
+        userNameExists &&
+        userNameExists._id.toString() !== user._id.toString()
+      )
         return res.status(400).json({ error: "Username already exists" });
     }
 
     if (email) {
-      let regex = "/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/.";
+      const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       const validateEmail = regex.test(email);
       if (!validateEmail)
         return res.status(400).json({ error: "invalid email" });
       const emailExists = await User.findOne({ email });
-      if (emailExists && emailExists !== user)
+      if (emailExists && emailExists._id.toString() !== user._id.toString())
         return res.status(400).json({ error: "Email already exists" });
     }
 
@@ -39,16 +42,17 @@ export const updateUser = async (req, res) => {
         .json({ error: "New password and current password cannot be same" });
 
     if (newPassword && currentPassword) {
-      regex = "^(?=.*[A-Za-z])(?=.*d)[A-Za-zd]{8,}$";
+      const regex =
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
       const validatePassword = regex.test(newPassword);
       if (!validatePassword)
         return res.status(400).json({ error: "Invalid password" });
-      const doPassMatch = bcrypt.compare(currentPassword, user.password);
+      const doPassMatch = await bcrypt.compare(currentPassword, user.password);
       if (!doPassMatch)
         return res.status(400).json({ error: "Current password incorrect" });
 
       const salt = await bcrypt.genSalt(10);
-      hashPassword = bcrypt.hash(newPassword, salt);
+      hashPassword = await bcrypt.hash(newPassword, salt);
     }
 
     if (profileImage) {

@@ -14,7 +14,7 @@
   "dependencies": {
     "bcrypt": "^6.0.0",
     "cloudinary": "^2.7.0",
-    "cookieparser": "^0.1.0",
+    "cookie-parser": "^1.4.7",
     "crossenv": "^0.0.2-security",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",

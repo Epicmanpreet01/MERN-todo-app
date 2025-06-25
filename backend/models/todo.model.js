@@ -18,7 +18,7 @@ const ToDo = model(
         default: "",
       },
       dueDate: {
-        type: new Date(),
+        type: Date,
         required: true,
       },
       completed: {

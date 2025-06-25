@@ -1,11 +1,11 @@
-import ToDo from "../models/todo.model";
+import ToDo from "../models/todo.model.js";
 
 export const getTodos = async (req, res) => {
   const userId = req.user._id;
 
   try {
     const todos = await ToDo.find({ user: userId });
-    if (todos)
+    if (todos.length === 0)
       return res.status(200).json({ message: "No todo found for user" });
 
     res.status(200).json({ message: "todos found successfully", data: todos });
@@ -17,21 +17,22 @@ export const getTodos = async (req, res) => {
 
 export const postTodo = async (req, res) => {
   const userId = req.user._id;
-  const { id } = req.params;
   const { heading, description, dueDate, priority } = req.body;
-  if (!id) return res.status(400).json({ error: "Id cannot be undefined" });
   if (!heading || !description || !dueDate)
     return res.status(400).json({ error: "fields cannot be null" });
   try {
     const todo = await ToDo({
+      user: userId,
       heading,
       description,
       dueDate,
-      priority: priority || "",
+      priority: priority || "medium",
     });
 
     if (!todo)
       return res.status(500).json({ error: "could not add todo to db" });
+
+    await todo.save();
 
     return res
       .status(200)
