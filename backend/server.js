@@ -5,7 +5,7 @@ import cookieParser from "cookieparser";
 
 import authRoutes from "./routes/auth.route.js";
 import todoRoutes from "./routes/todo.route.js";
-
+import userRoutes from "./routes/user.route.js";
 //config
 dotenv.config();
 const PORT = process.env.PORT;
@@ -20,6 +20,7 @@ app.use(cookieParser());
 
 //routes
 app.use("/auth", authRoutes);
+app.use("/user", userRoutes);
 app.use("/todo", todoRoutes);
 
 //listen
