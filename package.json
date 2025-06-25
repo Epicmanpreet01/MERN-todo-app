@@ -1,0 +1,27 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "backend/server.js",
+  "scripts": {
+    "dev": "nodemon /backend/server.js",
+    "start": "node /backend/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cloudinary": "^2.7.0",
+    "cookieparser": "^0.1.0",
+    "crossenv": "^0.0.2-security",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.16.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
