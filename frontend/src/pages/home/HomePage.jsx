@@ -1,5 +1,6 @@
 import Typical from "react-typical";
 import { RxCross1 } from "react-icons/rx";
+import TaskSkeleton from "../../components/skeletons/TaskSkeleton";
 
 const HomePage = () => {
   const tasks = [
@@ -25,6 +26,8 @@ const HomePage = () => {
     },
   ];
 
+  const isLoading = true;
+
   return (
     <div className="max-w-6xl mx-auto min-h-screen mt-24 px-6 py-10">
       {/* Header */}
@@ -45,8 +48,16 @@ const HomePage = () => {
       </div>
 
       {/* Task Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mt-10">
-        {tasks.map((task, index) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mt-10 bg-base-100">
+        {isLoading && (
+          <>
+            <TaskSkeleton />
+            <TaskSkeleton />
+            <TaskSkeleton />
+            <TaskSkeleton />
+          </>
+        )}
+        {!isLoading && tasks.map((task, index) => (
           <div
             key={index}
             className={`flex flex-col justify-between p-5 rounded-2xl shadow-xl transition-all duration-300 ${

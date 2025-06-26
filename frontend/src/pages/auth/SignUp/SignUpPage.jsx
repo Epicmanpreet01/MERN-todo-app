@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const SignUpPage = () => {
   return (
     <div className='max-w-6xl mx-auto'>
-      <div className="min-h-screen flex flex-col lg:flex-row items-center justify-center bg-base-100 text-base-content px-6 py-10">
+      <div className="min-h-screen flex flex-col lg:flex-row items-center justify-center text-base-content px-6 py-10">
         
         {/* Logo Section */}
         <div className="w-full lg:w-1/2 flex justify-center mb-10 lg:mb-0">
