@@ -26,7 +26,7 @@ const HomePage = () => {
     },
   ];
 
-  const isLoading = true;
+  const isLoading = false;
 
   return (
     <div className="max-w-6xl mx-auto min-h-screen mt-24 px-6 py-10">
@@ -43,7 +43,49 @@ const HomePage = () => {
             placeholder="Search tasks..."
             className="input input-bordered w-full sm:w-72"
           />
-          <button className="btn btn-accent font-bold w-full sm:w-auto">+ Add Task</button>
+          <button className="btn btn-accent font-bold w-full sm:w-auto" onClick={()=>document.getElementById('my_modal_4').showModal()}>+ Add Task</button>
+          <dialog id="my_modal_4" className="modal modal-middle">
+            <div className="modal-box max-w-xl shadow-sm shadow-primary">
+              <h3 className="font-bold text-lg">Add Task</h3>
+              <div className='divider'></div>
+              <div className='flex flex-col space-y-4 px-20'>
+                <label className="floating-label">
+                  <span>Heading</span>
+                  <input type="text" placeholder='Heading' className="input input-md w-full" />
+                </label>
+                <label className="floating-label">
+                  <span>Description</span>
+                  <input type="email" placeholder='Description' className="input input-md w-full" />
+                </label>
+                <label className="floating-label">
+                  <span>Date</span>
+                  <input type="date" placeholder='Date' className="input input-md w-full" />
+                </label>
+                <select defaultValue="Pick a color" className="select w-full">
+                  <option disabled={true}>Priority</option>
+                  <option>High</option>
+                  <option>Medium</option>
+                  <option>Low</option>
+                </select>
+              </div>
+              <div className='divider'></div>
+              <div className='flex justify-end space-x-2'>
+                <button 
+                  className='btn btn-outline btn-primary-content' 
+                  onClick={() => document.getElementById('my_modal_4').close()}
+                >
+                  Add
+                </button>
+                <button 
+                  className='btn btn-ghost'
+                  onClick={() => document.getElementById('my_modal_4').close()}
+                >Close</button>
+              </div>
+            </div>
+            <form method="dialog" className="modal-backdrop">
+              <button>close</button>
+            </form>
+          </dialog>
         </div>
       </div>
 

@@ -38,9 +38,9 @@ const Navbar = () => {
             </div>
             <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 shadow-sm absolute top-10 right-0 text-lg font-bold">
               <Link to={'/profile'}>
-                <li><a className=''>Profile Page</a></li>
+                <li>Profile Page</li>
               </Link>
-              <li className='text-error'><a>Log Out</a></li>
+              <li className='text-error'>Log Out</li>
             </ul>
           </div>
         </div>
