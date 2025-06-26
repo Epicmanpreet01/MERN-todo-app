@@ -10,7 +10,6 @@ const Navbar = () => {
     <div className='drawer'>
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
 
-      {/* ✅ Fixed Navbar */}
       <div className="navbar fixed top-0 left-0 right-0 z-50 px-10 shadow-sm bg-base-100 flex justify-between">
         <div className='navbar-start'>
           <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
@@ -20,7 +19,7 @@ const Navbar = () => {
           </label>
           <Typical
             className="text-3xl ml-4 font-extrabold"
-            steps={['', 500, 'ToDo', 100, 'ToDo List.', 5000, 'ToDo', '']}
+            steps={['', 100,'ToDo List.', 5000,'']}
             loop={Infinity}
             wrapper='p'
           />
@@ -40,20 +39,18 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* ✅ Drawer Sidebar */}
-{/* ✅ Drawer Sidebar */}
       <div className="drawer-side z-50">
         <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
         <ul className="menu bg-base-200 min-h-full w-80 p-6 text-xl gap-y-3">
 
           {/* Logo */}
-          <TaskMateLogo className="fill-primary-content mb-6" textClassName="text-primary" />
+          <TaskMateLogo className="fill-primary-content  mb-6" textColor='text-secondary' />
 
           {/* Menu Items */}
-          <Link to={'/'}>
+          <Link to={'/all'}>
             <li>
               <div className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-primary hover:text-primary-content shadow-sm">
-                <LuListTodo className="text-lg" /> All ToDos
+                <LuListTodo className="text-lg" /> All Tasks
               </div>
             </li>
           </Link>
@@ -61,7 +58,7 @@ const Navbar = () => {
           <Link to={'/completed'}>
             <li>
               <div className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-success hover:text-success-content shadow-sm">
-                <FaCheck className="text-lg" /> Completed
+                <FaCheck className="text-lg" /> Completed Tasks
               </div>
             </li>
           </Link>
@@ -69,7 +66,7 @@ const Navbar = () => {
           <Link to={'/pending'}>
             <li>
               <div className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-warning hover:text-warning-content shadow-sm">
-                <MdOutlinePending className="text-lg" /> Pending
+                <MdOutlinePending className="text-lg" /> Pending Tasks
               </div>
             </li>
           </Link>
@@ -77,7 +74,7 @@ const Navbar = () => {
           <Link to={'/important'}>
             <li>
               <div className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-error hover:text-error-content shadow-sm">
-                <MdNotificationImportant className="text-lg" /> Important
+                <MdNotificationImportant className="text-lg" /> Important Tasks
               </div>
             </li>
           </Link>

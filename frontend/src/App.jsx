@@ -12,7 +12,7 @@ function App() {
     <div className="h-screen">
       <Navbar />
       <Routes>
-        <Route path="/" element={<HomePage />}/>
+        <Route path="/:mode" element={<HomePage />}/>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />}/>
       </Routes>

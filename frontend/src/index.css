@@ -3,7 +3,6 @@
   themes: retro --default, black --preferdark;
 }
 
-
 @plugin "daisyui/theme" {
   name: "black";
   default: false;
@@ -15,8 +14,8 @@
   --color-base-content: oklch(87.609% 0 0);
   --color-primary: oklch(35% 0 0);
   --color-primary-content: oklch(100% 0 0);
-  --color-secondary: oklch(35% 0 0);
-  --color-secondary-content: oklch(100% 0 0);
+  --color-secondary: oklch(85% 0.12 100); /* Indigo-like */
+  --color-secondary-content: oklch(98% 0.02 270);
   --color-accent: oklch(35% 0 0);
   --color-accent-content: oklch(100% 0 0);
   --color-neutral: oklch(35% 0 0);
@@ -31,10 +30,10 @@
   --color-error-content: oklch(12.559% 0.051 29.233);
   --radius-selector: 0rem;
   --radius-field: 0rem;
-  --radius-box: 01rem;
+  --radius-box: 0rem;
   --size-selector: 0.25rem;
   --size-field: 0.25rem;
   --border: 1px;
-  --depth: 1;
+  --depth: 0;
   --noise: 0;
 }
