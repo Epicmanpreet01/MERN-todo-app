@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: cyberpunk --default, black --preferdark;
+  themes: retro --default, black --preferdark;
 }
 
 

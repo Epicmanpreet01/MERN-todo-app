@@ -1,79 +1,90 @@
-import { Link } from 'react-router-dom';
+import Typical from 'react-typical';
 import TaskMateLogo from '../svgs/logo';
-import { Sunsvg } from '../svgs/sun.jsx';
-import { MoonSvg } from '../svgs/moon.jsx';
+import { Link } from 'react-router-dom';
+import { LuListTodo } from "react-icons/lu";
+import { MdOutlinePending,MdNotificationImportant } from "react-icons/md";
+import { FaCheck } from "react-icons/fa";
 
 const Navbar = () => {
   return (
-    <nav className="navbar bg-base-100 shadow-md px-4 md:px-10 py-2">
-      {/* Left - Logo */}
-      <div className="flex-1">
-        <Link to="/" className="hover:opacity-90 transition">
-          <TaskMateLogo className="w-36 md:w-44" />
-        </Link>
-      </div>
+    <div className='drawer'>
+      <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
 
-      {/* Right - Theme Switch + Avatar */}
-      <div className="flex items-center gap-4">
-        {/* Theme Toggle */}
-        <label className="swap swap-rotate btn btn-circle btn-ghost tooltip tooltip-bottom" data-tip="Toggle theme">
-          <input
-            type="checkbox"
-            className="theme-controller"
-            value="synthwave"
-            aria-label="Toggle Theme"
+      {/* ✅ Fixed Navbar */}
+      <div className="navbar fixed top-0 left-0 right-0 z-50 px-10 shadow-sm bg-base-100 flex justify-between">
+        <div className='navbar-start'>
+          <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-6 h-6 stroke-current">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </label>
+          <Typical
+            className="text-3xl ml-4 font-extrabold"
+            steps={['', 500, 'ToDo', 100, 'ToDo List.', 5000, 'ToDo', '']}
+            loop={Infinity}
+            wrapper='p'
           />
-          {/* Sun */}
-          <Sunsvg className="swap-on w-6 h-6 fill-current" />
-          {/* Moon */}
-          <MoonSvg className="swap-off w-6 h-6 fill-current" />
-        </label>
-
-        {/* Avatar with Dropdown (optional) */}
-        <div className="dropdown dropdown-end">
-          <div
-            tabIndex={0}
-            role="button"
-            className="avatar ring ring-primary ring-offset-base-100 ring-offset-2 w-11 rounded-full cursor-pointer transition hover:ring-4"
-          >
-            <img
-              alt="User avatar"
-              src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp"
-              className='rounded-full object-center object-cover'
-            />
-          </div>
-
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] w-56 p-2 shadow-xl bg-base-200 text-base-content rounded-box animate-fadeIn"
-          >
-            <li className="menu-title text-sm opacity-70 px-2">My Account</li>
-
-            <li>
-              <Link to="/profile" className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-base-300 transition">
-                <span className="material-symbols-outlined text-lg">person</span>
-                Profile
-              </Link>
-            </li>
-
-            <li>
-              <Link to="/settings" className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-base-300 transition">
-                <span className="material-symbols-outlined text-lg">settings</span>
-                Settings
-              </Link>
-            </li>
-
-            <li>
-              <button className="flex items-center gap-2 w-full px-3 py-2 rounded-md hover:bg-error text-error hover:text-error-content transition">
-                <span className="material-symbols-outlined text-lg">logout</span>
-                Logout
-              </button>
-            </li>
-          </ul>
         </div>
 
+        <div className='navbar-end space-x-5'>
+          <input type="checkbox" value="retro" className="toggle theme-controller" />
+          <div className="avatar cursor-pointer dropdown relative">
+            <div tabIndex={0} role="button" className="ring-primary ring-offset-base-100 w-9 rounded-full ring-2 ring-offset-2">
+              <img src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
+            </div>
+            <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 shadow-sm absolute top-10 right-0 text-lg font-bold">
+              <li><a className=''>Profile Page</a></li>
+              <li className='text-error'><a>Log Out</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </nav>
+
+      {/* ✅ Drawer Sidebar */}
+{/* ✅ Drawer Sidebar */}
+      <div className="drawer-side z-50">
+        <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
+        <ul className="menu bg-base-200 min-h-full w-80 p-6 text-xl gap-y-3">
+
+          {/* Logo */}
+          <TaskMateLogo className="fill-primary-content mb-6" textClassName="text-primary" />
+
+          {/* Menu Items */}
+          <Link to={'/'}>
+            <li>
+              <div className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-primary hover:text-primary-content shadow-sm">
+                <LuListTodo className="text-lg" /> All ToDos
+              </div>
+            </li>
+          </Link>
+
+          <Link to={'/completed'}>
+            <li>
+              <div className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-success hover:text-success-content shadow-sm">
+                <FaCheck className="text-lg" /> Completed
+              </div>
+            </li>
+          </Link>
+
+          <Link to={'/pending'}>
+            <li>
+              <div className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-warning hover:text-warning-content shadow-sm">
+                <MdOutlinePending className="text-lg" /> Pending
+              </div>
+            </li>
+          </Link>
+
+          <Link to={'/important'}>
+            <li>
+              <div className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-error hover:text-error-content shadow-sm">
+                <MdNotificationImportant className="text-lg" /> Important
+              </div>
+            </li>
+          </Link>
+        </ul>
+      </div>
+
+    </div>
   );
 };
 

@@ -9,7 +9,7 @@ import SignupPage from "./pages/auth/SignUp/SignUpPage.jsx";
 function App() {
 
   return (
-    <div className="max-w-6xl mx-auto h-screen">
+    <div className="h-screen">
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />}/>
