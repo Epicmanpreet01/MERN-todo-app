@@ -1,16 +1,19 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: cyberpunk --default, todo --preferdark;
+  themes: cyberpunk --default, black --preferdark;
 }
 
+
 @plugin "daisyui/theme" {
-  name: "todo";
+  name: "black";
+  default: false;
+  prefersdark: false;
   color-scheme: "dark";
   --color-base-100: oklch(0% 0 0);
-  --color-base-200: oklch(0% 0 0);
+  --color-base-200: oklch(19% 0 0);
   --color-base-300: oklch(22% 0 0);
   --color-base-content: oklch(87.609% 0 0);
-  --color-primary: oklch(0% 0 0);
+  --color-primary: oklch(35% 0 0);
   --color-primary-content: oklch(100% 0 0);
   --color-secondary: oklch(35% 0 0);
   --color-secondary-content: oklch(100% 0 0);
@@ -26,13 +29,12 @@
   --color-warning-content: oklch(19.359% 0.042 109.769);
   --color-error: oklch(62.795% 0.257 29.233);
   --color-error-content: oklch(12.559% 0.051 29.233);
-  --radius-selector: 0.25rem;
-  --radius-field: 0.25rem;
-  --radius-box: 1rem;
+  --radius-selector: 0rem;
+  --radius-field: 0rem;
+  --radius-box: 01rem;
   --size-selector: 0.25rem;
   --size-field: 0.25rem;
   --border: 1px;
   --depth: 1;
   --noise: 0;
 }
-
