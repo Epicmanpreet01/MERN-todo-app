@@ -1,5 +1,5 @@
 import Typical from 'react-typical';
-import { CiEdit } from 'react-icons/ci';
+import EditProfileModal from './EditProfileModal';
 
 const ProfilePage = () => {
   const user = {
@@ -11,9 +11,7 @@ const ProfilePage = () => {
     <div className="relative min-h-screen overflow-hidden">
       <div className="mt-32 px-6 max-w-4xl mx-auto flex flex-col items-center shadow-sm shadow-accent border-sm border-accent rounded-2xl space-y-10 py-10 backdrop-blur-md relative">
         {/* Edit button */}
-        <button className="btn btn-ghost absolute top-5 right-5 btn-lg rounded-lg">
-          <CiEdit />
-        </button>
+        <EditProfileModal />
 
         {/* Avatar */}
         <div className="avatar">
@@ -61,6 +59,7 @@ const ProfilePage = () => {
           </div>
         </div>
       </div>
+      
     </div>
   );
 };

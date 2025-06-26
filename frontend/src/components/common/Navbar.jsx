@@ -6,6 +6,11 @@ import { MdOutlinePending,MdNotificationImportant } from "react-icons/md";
 import { FaCheck } from "react-icons/fa";
 
 const Navbar = () => {
+
+  const closeDrawer = () => {
+    document.getElementById('my-drawer-3').checked = false;
+  };
+
   return (
     <div className='drawer'>
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
@@ -32,7 +37,9 @@ const Navbar = () => {
               <img src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
             </div>
             <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 shadow-sm absolute top-10 right-0 text-lg font-bold">
-              <li><a className=''>Profile Page</a></li>
+              <Link to={'/profile'}>
+                <li><a className=''>Profile Page</a></li>
+              </Link>
               <li className='text-error'><a>Log Out</a></li>
             </ul>
           </div>
@@ -47,7 +54,7 @@ const Navbar = () => {
           <TaskMateLogo className="fill-primary-content  mb-6" textColor='text-secondary' />
 
           {/* Menu Items */}
-          <Link to={'/all'}>
+          <Link to={'/all'} onClick={closeDrawer}>
             <li>
               <div className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-primary hover:text-primary-content shadow-sm">
                 <LuListTodo className="text-lg" /> All Tasks
@@ -55,7 +62,7 @@ const Navbar = () => {
             </li>
           </Link>
 
-          <Link to={'/completed'}>
+          <Link to={'/completed'} onClick={closeDrawer}>
             <li>
               <div className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-success hover:text-success-content shadow-sm">
                 <FaCheck className="text-lg" /> Completed Tasks
@@ -63,7 +70,7 @@ const Navbar = () => {
             </li>
           </Link>
 
-          <Link to={'/pending'}>
+          <Link to={'/pending'} onClick={closeDrawer}>
             <li>
               <div className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-warning hover:text-warning-content shadow-sm">
                 <MdOutlinePending className="text-lg" /> Pending Tasks
@@ -71,7 +78,7 @@ const Navbar = () => {
             </li>
           </Link>
 
-          <Link to={'/important'}>
+          <Link to={'/important'} onClick={closeDrawer}>
             <li>
               <div className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-error hover:text-error-content shadow-sm">
                 <MdNotificationImportant className="text-lg" /> Important Tasks
