@@ -1,10 +1,41 @@
+import { useState } from 'react';
 import { CiEdit } from 'react-icons/ci';
 
-const EditProfileModal = () => {
+import LoadingSpinner from '../../components/common/LoadingSpinner.jsx'
+import useUpdateMutation from '../../hooks/mutations/UpdateProfile.js';
 
-  const user = {
-    userName: 'Manpreet Singh',
-    email: 'manpreet210028@gmail.com'
+const EditProfileModal = ({authUser}) => {
+
+  const { mutate: updateUserMutation,isPending:updateUserPending } = useUpdateMutation();
+
+  const [formData,setFormData] = useState({
+    userName: authUser.userName,
+    email: authUser.email,
+    newPassword: '',
+    currentPassword: ''
+  });
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setFormData(prevFormData => ({
+      ...prevFormData, [name]:value
+    }))
+  }
+
+  function handleClick(e) {
+    const { name } = e.target;
+    
+    if(name === 'update') {
+      updateUserMutation(formData);
+    } else {
+      setFormData({
+        userName: authUser.userName,
+        email: authUser.email,
+        newPassword: '',
+        currentPassword: ''
+      })
+      document.getElementById("my_modal_2").close()
+    }
   }
 
   return (
@@ -32,9 +63,10 @@ const EditProfileModal = () => {
               <input
                 type="text"
                 placeholder="epicmanpreet02"
-                value={user.userName}
+                name='userName'
+                value={formData.userName}
                 className="input input-bordered input-primary w-full"
-                readOnly // optional: remove if you want it to be editable
+                onChange={handleChange}
               />
             </label>
 
@@ -43,9 +75,10 @@ const EditProfileModal = () => {
               <input
                 type="email"
                 placeholder="xyz@gmail.com"
-                value={user.email}
+                name='email'
+                value={formData.email}
                 className="input input-bordered input-primary w-full"
-                readOnly // optional
+                onChange={handleChange}
               />
             </label>
 
@@ -54,7 +87,10 @@ const EditProfileModal = () => {
               <input
                 type="password"
                 placeholder="********"
+                name='newPassword'
+                value={formData.newPassword}
                 className="input input-bordered input-primary w-full"
+                onChange={handleChange}
               />
             </label>
 
@@ -62,8 +98,11 @@ const EditProfileModal = () => {
               <span className="label-text font-semibold">Current Password</span>
               <input
                 type="password"
+                name='currentPassword'
+                value={formData.currentPassword}
                 placeholder="********"
                 className="input input-bordered input-primary w-full"
+                onChange={handleChange}
               />
             </label>
           </div>
@@ -73,14 +112,16 @@ const EditProfileModal = () => {
           {/* Modal Footer */}
           <div className="flex justify-end space-x-3">
             <button
+              name='update'
               className="btn btn-accent font-semibold px-6"
-              onClick={() => document.getElementById("my_modal_2").close()}
+              onClick={handleClick}
             >
-              Update
+              { updateUserPending? <LoadingSpinner /> : 'Update' }
             </button>
             <button
+              name='cancel'
               className="btn btn-outline"
-              onClick={() => document.getElementById("my_modal_2").close()}
+              onClick={handleClick}
             >
               Cancel
             </button>

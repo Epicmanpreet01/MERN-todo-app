@@ -8,7 +8,7 @@ import SignupPage from "./pages/auth/SignUp/SignUpPage.jsx";
 import ProfilePage from "./pages/profile/ProfilePage.jsx";
 import ProfileBannerDoodle from "./components/svgs/PlaceholderBanner.jsx";
 import { Bounce } from "react-toastify";
-import useAuthUserQuery from "./hooks/queries/authUser.js";
+import useAuthUserQuery from "./hooks/queries/AuthUser.js";
 import LoadingSpinner from "./components/common/LoadingSpinner.jsx";
 import { useState } from "react";
 function App() {
@@ -53,6 +53,7 @@ function App() {
           pauseOnHover
           theme="dark"
           transition={Bounce}
+          className={'z-[9999] fixed'}
           />
       </div>
     </div>

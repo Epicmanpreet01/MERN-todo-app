@@ -26,7 +26,7 @@ export default function useUpdateTaskMutation(mode) {
       });
     },
     onError: (error) => {
-      console.error(`Error logging user out: ${error.message}`);
+      console.error(`Error updating task: ${error.message}`);
       toast.error(error.response?.data?.error || `Failed to update task`);
     },
   });
