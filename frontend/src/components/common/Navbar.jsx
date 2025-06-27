@@ -40,7 +40,7 @@ const Navbar = () => {
         </div>
 
         <div className='navbar-end space-x-5'>
-          <input type="checkbox" value={isdark? 'black': 'retro'} checked={!isdark} onClick={() => setIsdark(!isdark)} className="toggle theme-controller" />
+          <input type="checkbox" value={isdark? 'black': 'retro'} checked={!isdark} onChange={() => setIsdark(!isdark)} className="toggle theme-controller" />
           <div className="avatar cursor-pointer dropdown relative">
             <div tabIndex={0} role="button" className="ring-primary ring-offset-base-100 w-9 rounded-full ring-2 ring-offset-2">
               <img src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
