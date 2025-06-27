@@ -218,7 +218,7 @@ const HomePage = ({mode, setMode}) => {
             <TaskSkeleton />
           </>
         )}
-        {!isLoading && filteredTasks.length === 0 && (
+        {!isLoading && search &&filteredTasks.length === 0 && (
           <div className="text-2xl text-center col-span-full font-semibold opacity-50">
             No Tasks Found 🔍
           </div>

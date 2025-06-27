@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "react-toastify";
-export default function useLogoutMutation() {
+export default function useLogoutMutation(mode) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async () => {
@@ -18,6 +18,7 @@ export default function useLogoutMutation() {
     onSuccess: (message) => {
       toast.success(message);
       queryClient.invalidateQueries({ queryKey: ["authUser"] });
+      queryClient.invalidateQueries({ queryKey: ["tasks", mode] });
     },
     onError: (error) => {
       console.error(`Error logging user out: ${error.message}`);

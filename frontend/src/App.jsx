@@ -25,8 +25,6 @@ function App() {
     return <div className='h-screen flex justify-center items-center'><LoadingSpinner className="size-lg" /></div>
   }
 
-  console.log(mode);
-
   return (
     <div className="relative h-screen overflow-hidden">
       {/* Background doodle */}
@@ -34,7 +32,7 @@ function App() {
 
       {/* Main Content */}
       <div className="relative z-10">
-        {!hidenavbar && <Navbar setMode={setMode} />}
+        {!hidenavbar && <Navbar setMode={setMode} mode={mode} />}
         <Routes>
           <Route path="/profile" element={authUser? <ProfilePage /> : <Navigate to={'/login'} />} />
           <Route path="/" element={<HomePage mode={mode} setMode={setMode} />} />

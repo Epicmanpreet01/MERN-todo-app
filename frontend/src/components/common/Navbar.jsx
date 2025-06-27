@@ -9,9 +9,9 @@ import useLogoutMutation from '../../hooks/mutations/LogoutMutation';
 import LoadingSpinner from './LoadingSpinner.jsx'
 import StaticHeading from '../memos/HeaderTypical.jsx';
 
-const Navbar = ({ setMode }) => {
+const Navbar = ({ setMode, mode }) => {
   const { data: authUser, isLoading:userLoading, isRefetching } = useAuthUserQuery();
-  const { mutate:logoutMutate, isPending:logoutPending } = useLogoutMutation();
+  const { mutate:logoutMutate, isPending:logoutPending } = useLogoutMutation(mode);
 
   const headingSteps = useMemo(() => ['', 100,'ToDo List.', 5000,''], []);
 
