@@ -4,7 +4,7 @@ import { LuListTodo } from "react-icons/lu";
 import { MdOutlinePending,MdNotificationImportant } from "react-icons/md";
 import { FaCheck } from "react-icons/fa";
 import { useState, useEffect, useMemo } from 'react';
-import useAuthUserQuery from '../../hooks/queries/authUser';
+import useAuthUserQuery from '../../hooks/queries/AuthUser.js';
 import useLogoutMutation from '../../hooks/mutations/LogoutMutation';
 import LoadingSpinner from './LoadingSpinner.jsx'
 import StaticHeading from '../memos/HeaderTypical.jsx';
