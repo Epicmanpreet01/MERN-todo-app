@@ -10,7 +10,7 @@ import LoadingSpinner from './LoadingSpinner.jsx'
 import StaticHeading from '../memos/HeaderTypical.jsx';
 
 const Navbar = ({ setMode }) => {
-  const { data: authUser, isLoading:userLoading } = useAuthUserQuery();
+  const { data: authUser, isLoading:userLoading, isRefetching } = useAuthUserQuery();
   const { mutate:logoutMutate, isPending:logoutPending } = useLogoutMutation();
 
   const headingSteps = useMemo(() => ['', 100,'ToDo List.', 5000,''], []);
@@ -47,10 +47,14 @@ const Navbar = ({ setMode }) => {
 
         <div className='navbar-end space-x-5'>
           <input type="checkbox" value={isdark? 'black': 'retro'} checked={!isdark} onChange={() => setIsdark(!isdark)} className="toggle theme-controller" />
-          {!userLoading && authUser && (
+          {!userLoading && !isRefetching && authUser && (
           <div className="avatar cursor-pointer dropdown relative">
             <div tabIndex={0} role="button" className="ring-primary ring-offset-base-100 w-9 rounded-full ring-2 ring-offset-2">
-              <img src={authUser.profileImage || '/avatar-placeholder.png'} />
+              <img src={
+                authUser?.profileImage?.includes("http")
+                  ? authUser.profileImage
+                  : '/avatar-placeholder.png'
+              } />
             </div>
             <ul tabIndex={0} className="dropdown-content menu bg-base-200 rounded-box z-1 w-52 shadow-sm absolute top-10 right-0 text-lg font-bold rounded-xl">
               <Link to={'/profile'}>

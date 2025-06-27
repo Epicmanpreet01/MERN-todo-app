@@ -24,6 +24,7 @@ export default function useUpdateTaskMutation(mode) {
           return task._id === data._id ? data : task;
         });
       });
+      queryClient.invalidateQueries({ queryKey: ["authUser"] });
     },
     onError: (error) => {
       console.error(`Error updating task: ${error.message}`);

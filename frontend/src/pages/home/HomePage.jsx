@@ -9,7 +9,10 @@ import useUpdateTaskMutation from "../../hooks/mutations/UpdateTaskMutation";
 import useDeleteTaskMutation from "../../hooks/mutations/DeleteTaskMutation";
 import formatDate from "../../utils/common/formatDate.js";
 import useAuthUserQuery from "../../hooks/queries/AuthUser.js";
+
+
 const HomePage = ({mode, setMode}) => {
+  
   const { data:authUser, isLoading:authUserLoading } = useAuthUserQuery();
   const { data:tasks, isLoading } = useTasksQuery(mode);
   const { mutate:addTaskMutate, isPending: addPending } = useAddTaskMutation(mode);
@@ -206,7 +209,7 @@ const HomePage = ({mode, setMode}) => {
         <div className="text-4xl text-center mt-4 font-extrabold">No Tasks yet 😔</div>
       )}
       {/* Task Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mt-10 bg-base-100">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mt-10">
         {isLoading && (
           <>
             <TaskSkeleton />
@@ -253,6 +256,7 @@ const HomePage = ({mode, setMode}) => {
                   className="checkbox checkbox-secondary mt-1"
                   checked={task.completed}
                   onChange={(e) => handleCheck(e,!task.completed)}
+                  disabled={task.completed}
                 />
                 <h4 className="text-lg font-semibold flex-1">{task.heading}</h4>
                 <button name={task._id} className="btn btn-ghost btn-xs text-error-100 hover:bg-error hover:text-error-content" onClick={handleDelete}>
