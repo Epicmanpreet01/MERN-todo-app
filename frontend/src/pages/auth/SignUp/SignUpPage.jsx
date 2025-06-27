@@ -18,7 +18,6 @@ const SignUpPage = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log('Hello bro');
     signupMutate(formData);
   }
 

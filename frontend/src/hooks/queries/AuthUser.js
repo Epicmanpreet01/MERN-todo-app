@@ -16,6 +16,5 @@ export default function useAuthUserQuery() {
         return null;
       }
     },
-    retry: 1,
   });
 }

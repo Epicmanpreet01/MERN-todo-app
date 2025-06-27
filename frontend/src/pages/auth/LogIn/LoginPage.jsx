@@ -16,7 +16,6 @@ const LoginPage = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log('Hello bro');
     loginMutate(formData);
   }
 

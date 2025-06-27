@@ -1,8 +1,9 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "react-toastify";
 
 export default function useFormMutation(mode) {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (formData) => {
       try {
@@ -19,6 +20,7 @@ export default function useFormMutation(mode) {
       toast.success(
         `${mode === "login" ? "Logged in" : "Signed up"} successfully`
       );
+      queryClient.invalidateQueries({ queryKey: ["authUser"] });
     },
     onError: (error) => {
       console.error(`Error while signing up user: ${error.message}`);
