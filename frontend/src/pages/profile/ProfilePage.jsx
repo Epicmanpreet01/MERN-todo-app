@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import Typical from 'react-typical';
 import EditProfileModal from './EditProfileModal';
 
-import useAuthUserQuery from '../../hooks/queries/authUser.js';
+import useAuthUserQuery from '../../hooks/queries/AuthUser.js';
 import useTasksQuery from '../../hooks/queries/Tasks.js';
 import ProfileSkeleton from '../../components/skeletons/ProfileSkeleton.jsx';
 import LoadingSpinner from '../../components/common/LoadingSpinner.jsx';
