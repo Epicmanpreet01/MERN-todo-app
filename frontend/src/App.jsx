@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom"
+import { Routes, Route, Navigate, useLocation } from "react-router-dom"
 import { ToastContainer } from 'react-toastify';
 
 import Navbar from './components/common/Navbar.jsx';
@@ -11,8 +11,13 @@ import { Bounce } from "react-toastify";
 import useAuthUserQuery from "./hooks/queries/authUser.js";
 import LoadingSpinner from "./components/common/LoadingSpinner.jsx";
 function App() {
+  const location = useLocation();
+
+  const hidenavbar = location.pathname === '/login' || location.pathname === '/signup';
 
   const { data:authUser, isLoading  } = useAuthUserQuery();
+
+  console.log(authUser);
 
   if(isLoading) {
     return <div className='h-screen flex justify-center items-center'><LoadingSpinner className="size-lg" /></div>
@@ -25,12 +30,12 @@ function App() {
 
       {/* Main Content */}
       <div className="relative z-10">
-        {authUser && <Navbar />}
+        {!hidenavbar && <Navbar />}
         <Routes>
-          <Route path="/profile" element={authUser && <ProfilePage /> || <Navigate to={'/login'} />} />
-          <Route path="/" element={authUser && <HomePage /> || <Navigate to={'/login'} />} />
-          <Route path="/login" element={!authUser && <LoginPage /> || <Navigate to={'/'} />} />
-          <Route path="/signup" element={!authUser && <SignupPage /> || <Navigate to={'/'} />} />
+          <Route path="/profile" element={authUser? <ProfilePage /> : <Navigate to={'/login'} />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={!authUser? <LoginPage /> : <Navigate to={'/'} />} />
+          <Route path="/signup" element={!authUser? <SignupPage /> : <Navigate to={'/'} />} />
         </Routes>
         <ToastContainer
           position="top-center"

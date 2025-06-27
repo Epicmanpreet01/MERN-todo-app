@@ -5,8 +5,15 @@ import { LuListTodo } from "react-icons/lu";
 import { MdOutlinePending,MdNotificationImportant } from "react-icons/md";
 import { FaCheck } from "react-icons/fa";
 import { useState, useEffect } from 'react';
+import useAuthUserQuery from '../../hooks/queries/authUser';
+import useLogoutMutation from '../../hooks/mutations/LogoutMutation';
+import LoadingSpinner from './LoadingSpinner.jsx'
 
 const Navbar = () => {
+
+
+  const { data: authUser, isLoading:userLoading } = useAuthUserQuery();
+  const { mutate:logoutMutate, isPending:logoutPending } = useLogoutMutation();
 
   const closeDrawer = () => {
     document.getElementById('my-drawer-3').checked = false;
@@ -41,6 +48,7 @@ const Navbar = () => {
 
         <div className='navbar-end space-x-5'>
           <input type="checkbox" value={isdark? 'black': 'retro'} checked={!isdark} onChange={() => setIsdark(!isdark)} className="toggle theme-controller" />
+          {!userLoading && authUser && (
           <div className="avatar cursor-pointer dropdown relative">
             <div tabIndex={0} role="button" className="ring-primary ring-offset-base-100 w-9 rounded-full ring-2 ring-offset-2">
               <img src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
@@ -49,9 +57,14 @@ const Navbar = () => {
               <Link to={'/profile'}>
                 <li>Profile Page</li>
               </Link>
-              <li className='text-error'>Log Out</li>
+              <li className='text-error' onClick={() => logoutMutate()} >
+                {logoutPending? <LoadingSpinner /> : 'Log Out'}
+              </li>
             </ul>
           </div>
+          ) }
+          { !userLoading && !authUser && <Link to={'/login'}><button className='btn btn-outline outline-secondary text-xl text-secondary-content'>Log In</button></Link> }
+          { userLoading && <LoadingSpinner /> }
         </div>
       </div>
 

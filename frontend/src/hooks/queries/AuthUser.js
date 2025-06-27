@@ -13,7 +13,7 @@ export default function useAuthUserQuery() {
         return data;
       } catch (error) {
         console.error(`Erroor fetching current user: ${error.message}`);
-        return error;
+        return null;
       }
     },
     retry: 1,
