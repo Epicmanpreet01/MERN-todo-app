@@ -8,8 +8,9 @@ import StaticHeading from "../../components/memos/HeaderTypical";
 import useUpdateTaskMutation from "../../hooks/mutations/UpdateTaskMutation";
 import useDeleteTaskMutation from "../../hooks/mutations/DeleteTaskMutation";
 import formatDate from "../../utils/common/formatDate.js";
+import useAuthUserQuery from "../../hooks/queries/AuthUser.js";
 const HomePage = ({mode, setMode}) => {
-
+  const { data:authUser, isLoading:authUserLoading } = useAuthUserQuery();
   const { data:tasks, isLoading } = useTasksQuery(mode);
   const { mutate:addTaskMutate, isPending: addPending } = useAddTaskMutation(mode);
   const { mutate:updateTaskMutate } = useUpdateTaskMutation(mode);
@@ -100,101 +101,105 @@ const HomePage = ({mode, setMode}) => {
             value={search}
             onChange={handleSearch}
           />
-          <button className="btn btn-accent font-bold w-full sm:w-auto" onClick={()=>document.getElementById('my_modal_4').showModal()}>+ Add Task</button>
-          <dialog id="my_modal_4" className="modal modal-middle">
-            <div className="modal-box max-w-xl bg-base-100 shadow-lg border border-primary rounded-2xl">
-              {/* Modal Header */}
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-2xl font-bold text-primary">📝 Add a New Task</h3>
-                <button
-                  className="btn btn-sm btn-circle btn-ghost text-error"
-                  onClick={() => document.getElementById("my_modal_4").close()}
-                >
-                  ✕
-                </button>
-              </div>
+          {authUser && !authUserLoading && (
+            <>
+              <button className="btn btn-accent font-bold w-full sm:w-auto" onClick={()=>document.getElementById('my_modal_4').showModal()}>+ Add Task</button>
+              <dialog id="my_modal_4" className="modal modal-middle">
+                <div className="modal-box max-w-xl bg-base-100 shadow-lg border border-primary rounded-2xl">
+                  {/* Modal Header */}
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-2xl font-bold text-primary">📝 Add a New Task</h3>
+                    <button
+                      className="btn btn-sm btn-circle btn-ghost text-error"
+                      onClick={() => document.getElementById("my_modal_4").close()}
+                    >
+                      ✕
+                    </button>
+                  </div>
 
-              <div className="divider"></div>
+                  <div className="divider"></div>
 
-              {/* Modal Body */}
-              <div className="flex flex-col space-y-4 px-4">
-                <label className="form-control w-full">
-                  <span className="label-text font-semibold">Heading</span>
-                  <input
-                    type="text"
-                    placeholder="Task heading"
-                    className="input input-bordered input-primary w-full"
-                    name="heading"
-                    value={taskData.heading}
-                    onChange={handleChange}
-                  />
-                </label>
+                  {/* Modal Body */}
+                  <div className="flex flex-col space-y-4 px-4">
+                    <label className="form-control w-full">
+                      <span className="label-text font-semibold">Heading</span>
+                      <input
+                        type="text"
+                        placeholder="Task heading"
+                        className="input input-bordered input-primary w-full"
+                        name="heading"
+                        value={taskData.heading}
+                        onChange={handleChange}
+                      />
+                    </label>
 
-                <label className="form-control w-full">
-                  <span className="label-text font-semibold">Description</span>
-                  <input
-                    type="text"
-                    placeholder="Describe your task"
-                    className="input input-bordered input-primary w-full"
-                    name="description"
-                    value={taskData.description}
-                    onChange={handleChange}
-                  />
-                </label>
+                    <label className="form-control w-full">
+                      <span className="label-text font-semibold">Description</span>
+                      <input
+                        type="text"
+                        placeholder="Describe your task"
+                        className="input input-bordered input-primary w-full"
+                        name="description"
+                        value={taskData.description}
+                        onChange={handleChange}
+                      />
+                    </label>
 
-                <label className="form-control w-full">
-                  <span className="label-text font-semibold">Due Date</span>
-                  <input
-                    type="date"
-                    className="input input-bordered input-primary w-full"
-                    name="dueDate"
-                    value={taskData.dueDate}
-                    onChange={handleChange}
-                  />
-                </label>
+                    <label className="form-control w-full">
+                      <span className="label-text font-semibold">Due Date</span>
+                      <input
+                        type="date"
+                        className="input input-bordered input-primary w-full"
+                        name="dueDate"
+                        value={taskData.dueDate}
+                        onChange={handleChange}
+                      />
+                    </label>
 
-                <label className="form-control w-full">
-                  <span className="label-text font-semibold">Priority</span>
-                  <select
-                    className="select select-bordered select-primary w-full"
-                    name="priority"
-                    value={taskData.priority}
-                    onChange={handleChange}
-                  >
-                    <option disabled value="">Select priority</option>
-                    <option>high</option>
-                    <option>medium</option>
-                    <option>low</option>
-                  </select>
-                </label>
-              </div>
+                    <label className="form-control w-full">
+                      <span className="label-text font-semibold">Priority</span>
+                      <select
+                        className="select select-bordered select-primary w-full"
+                        name="priority"
+                        value={taskData.priority}
+                        onChange={handleChange}
+                      >
+                        <option disabled value="">Select priority</option>
+                        <option>high</option>
+                        <option>medium</option>
+                        <option>low</option>
+                      </select>
+                    </label>
+                  </div>
 
-              <div className="divider my-6"></div>
+                  <div className="divider my-6"></div>
 
-              {/* Modal Footer */}
-              <div className="flex justify-end space-x-3">
-                <button
-                  name="add"
-                  className="btn btn-accent font-semibold px-6"
-                  onClick={handleClick}
-                  disabled={addPending}
-                >
-                  {addPending ? <LoadingSpinner /> : "Add Task"}
-                </button>
-                <button
-                  name="close"
-                  className="btn btn-outline"
-                  onClick={() => document.getElementById("my_modal_4").close()}
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
+                  {/* Modal Footer */}
+                  <div className="flex justify-end space-x-3">
+                    <button
+                      name="add"
+                      className="btn btn-accent font-semibold px-6"
+                      onClick={handleClick}
+                      disabled={addPending}
+                    >
+                      {addPending ? <LoadingSpinner /> : "Add Task"}
+                    </button>
+                    <button
+                      name="close"
+                      className="btn btn-outline"
+                      onClick={() => document.getElementById("my_modal_4").close()}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
 
-            <form method="dialog" className="modal-backdrop bg-opacity-40 backdrop-blur-sm">
-              <button>close</button>
-            </form>
-          </dialog>
+                <form method="dialog" className="modal-backdrop bg-opacity-40 backdrop-blur-sm">
+                  <button>close</button>
+                </form>
+              </dialog>
+            </>
+          )}
         </div>
       </div>
       {!isLoading && tasks.length === 0 && (
