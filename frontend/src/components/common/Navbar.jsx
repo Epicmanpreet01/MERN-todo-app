@@ -50,7 +50,7 @@ const Navbar = ({ setMode }) => {
           {!userLoading && authUser && (
           <div className="avatar cursor-pointer dropdown relative">
             <div tabIndex={0} role="button" className="ring-primary ring-offset-base-100 w-9 rounded-full ring-2 ring-offset-2">
-              <img src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
+              <img src={authUser.profileImage || '/avatar-placeholder.png'} />
             </div>
             <ul tabIndex={0} className="dropdown-content menu bg-base-200 rounded-box z-1 w-52 shadow-sm absolute top-10 right-0 text-lg font-bold rounded-xl">
               <Link to={'/profile'}>
