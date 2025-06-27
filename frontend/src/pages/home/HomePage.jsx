@@ -7,7 +7,7 @@ import LoadingSpinner from "../../components/common/LoadingSpinner";
 import StaticHeading from "../../components/memos/HeaderTypical";
 import useUpdateTaskMutation from "../../hooks/mutations/UpdateTaskMutation";
 import useDeleteTaskMutation from "../../hooks/mutations/DeleteTaskMutation";
-
+import formatDate from "../../utils/common/formatDate.js";
 const HomePage = ({mode, setMode}) => {
 
   const { data:tasks, isLoading } = useTasksQuery(mode);
@@ -72,7 +72,7 @@ const HomePage = ({mode, setMode}) => {
   }
 
   function handleDelete(e) {
-    const { name } = e.target;
+    const { name } = e.currentTarget;
     deleteTaskMutate(name);
   }
 
@@ -86,6 +86,13 @@ const HomePage = ({mode, setMode}) => {
 
         {/* Search + Add Task */}
         <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+          <div className="flex space-x-1 items-center">
+            <div className="text-xs">Priority:</div>
+            <div className="badge badge-outline badge-error badge-xs flex-1">High</div>
+            <div className="badge badge-outline badge-warning badge-xs flex-1">Medium</div>
+            <div className="badge badge-outline badge-info badge-xs flex-1">Low</div>
+          </div>
+
           <input
             type="text"
             placeholder="Search tasks..."
@@ -252,7 +259,9 @@ const HomePage = ({mode, setMode}) => {
               <p className="mt-4 text-base opacity-80">{task.description}</p>
 
               {/* Time */}
-              <span className="text-sm mt-6 italic text-right opacity-60">10:00 - 12:00</span>
+              <span className="text-[10px] mt-6 italic text-right opacity-60">
+                Created: {formatDate(task.createdAt)} · Due: {formatDate(task.dueDate)}
+              </span>
             </div>
           ))
         }
