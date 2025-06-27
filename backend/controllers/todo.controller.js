@@ -2,11 +2,20 @@ import ToDo from "../models/todo.model.js";
 
 export const getTodos = async (req, res) => {
   const userId = req.user._id;
+  const { mode } = req.params;
+  let fetchQuery = {
+    user: userId,
+  };
+  if (mode === "completed") fetchQuery = { ...fetchQuery, completed: true };
+  if (mode === "important") fetchQuery = { ...fetchQuery, priority: "high" };
+  if (mode === "pending") fetchQuery = { ...fetchQuery, completed: false };
 
   try {
-    const todos = await ToDo.find({ user: userId });
+    const todos = await ToDo.find(fetchQuery);
     if (todos.length === 0)
-      return res.status(200).json({ message: "No todo found for user" });
+      return res
+        .status(200)
+        .json({ message: "No todo found for user", data: [] });
 
     res.status(200).json({ message: "todos found successfully", data: todos });
   } catch (error) {
@@ -46,7 +55,7 @@ export const postTodo = async (req, res) => {
 export const deleteTodo = async (req, res) => {
   const userId = req.user._id;
   const { id } = req.params;
-
+  console.log(id);
   if (!id) return res.status(400).json({ error: "id cannot be undefined" });
 
   try {
@@ -67,7 +76,6 @@ export const updateTodo = async (req, res) => {
   const userId = req.user._id;
   const { id } = req.params;
   const { heading, description, dueDate, priority, completed } = req.body;
-
   try {
     const todo = await ToDo.findById(id);
 
@@ -75,7 +83,7 @@ export const updateTodo = async (req, res) => {
     todo.description = description || todo.description;
     todo.dueDate = dueDate || todo.dueDate;
     todo.priority = priority || todo.priority;
-    todo.completed = completed || todo.completed;
+    todo.completed = completed || todo.completed; //completed doesn't get reverted back to false if checked again
 
     const updatedTodo = await todo.save();
 

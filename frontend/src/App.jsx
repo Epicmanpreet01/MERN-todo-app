@@ -10,18 +10,22 @@ import ProfileBannerDoodle from "./components/svgs/PlaceholderBanner.jsx";
 import { Bounce } from "react-toastify";
 import useAuthUserQuery from "./hooks/queries/authUser.js";
 import LoadingSpinner from "./components/common/LoadingSpinner.jsx";
+import { useState } from "react";
 function App() {
+
+  const [mode,setMode] = useState('all');
+
   const location = useLocation();
 
   const hidenavbar = location.pathname === '/login' || location.pathname === '/signup';
 
   const { data:authUser, isLoading  } = useAuthUserQuery();
 
-  console.log(authUser);
-
   if(isLoading) {
     return <div className='h-screen flex justify-center items-center'><LoadingSpinner className="size-lg" /></div>
   }
+
+  console.log(mode);
 
   return (
     <div className="relative h-screen overflow-hidden">
@@ -30,10 +34,10 @@ function App() {
 
       {/* Main Content */}
       <div className="relative z-10">
-        {!hidenavbar && <Navbar />}
+        {!hidenavbar && <Navbar setMode={setMode} />}
         <Routes>
           <Route path="/profile" element={authUser? <ProfilePage /> : <Navigate to={'/login'} />} />
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<HomePage mode={mode} setMode={setMode} />} />
           <Route path="/login" element={!authUser? <LoginPage /> : <Navigate to={'/'} />} />
           <Route path="/signup" element={!authUser? <SignupPage /> : <Navigate to={'/'} />} />
         </Routes>

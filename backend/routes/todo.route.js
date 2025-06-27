@@ -11,7 +11,7 @@ import {
 
 const router = express.Router();
 
-router.get("/", validateUser, getTodos);
+router.get("/:mode", validateUser, getTodos);
 router.post("/", validateUser, postTodo);
 router.delete("/:id", validateUser, deleteTodo);
 router.post("/:id", validateUser, updateTodo);

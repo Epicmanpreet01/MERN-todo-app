@@ -1,22 +1,24 @@
-import Typical from 'react-typical';
 import TaskMateLogo from '../svgs/logo';
 import { Link } from 'react-router-dom';
 import { LuListTodo } from "react-icons/lu";
 import { MdOutlinePending,MdNotificationImportant } from "react-icons/md";
 import { FaCheck } from "react-icons/fa";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import useAuthUserQuery from '../../hooks/queries/authUser';
 import useLogoutMutation from '../../hooks/mutations/LogoutMutation';
 import LoadingSpinner from './LoadingSpinner.jsx'
+import StaticHeading from '../memos/HeaderTypical.jsx';
 
-const Navbar = () => {
-
-
+const Navbar = ({ setMode }) => {
   const { data: authUser, isLoading:userLoading } = useAuthUserQuery();
   const { mutate:logoutMutate, isPending:logoutPending } = useLogoutMutation();
 
-  const closeDrawer = () => {
+  const headingSteps = useMemo(() => ['', 100,'ToDo List.', 5000,''], []);
+
+  const closeDrawer = (e) => {
+    const { id } = e.target;
     document.getElementById('my-drawer-3').checked = false;
+    setMode(id)
   };
 
   const [isdark, setIsdark] = useState(
@@ -38,12 +40,9 @@ const Navbar = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </label>
-          <Typical
-            className="text-3xl ml-4 font-extrabold"
-            steps={['', 100,'ToDo List.', 5000,'']}
-            loop={Infinity}
-            wrapper='p'
-          />
+          <Link to={'/'} >
+            <StaticHeading text={headingSteps} />
+          </Link>
         </div>
 
         <div className='navbar-end space-x-5'>
@@ -76,33 +75,33 @@ const Navbar = () => {
           <TaskMateLogo className="fill-primary-content  mb-6" textColor='text-secondary' />
 
           {/* Menu Items */}
-          <Link to={'/'} onClick={closeDrawer}>
+          <Link to={'/'}>
             <li>
-              <div className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-primary hover:text-primary-content shadow-sm">
+              <div id='all' className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-primary hover:text-primary-content shadow-sm" onClick={closeDrawer}>
                 <LuListTodo className="text-lg" /> All Tasks
               </div>
             </li>
           </Link>
 
-          <Link to={'/'} onClick={closeDrawer}>
+          <Link to={'/'}>
             <li>
-              <div className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-success hover:text-success-content shadow-sm">
+              <div id='completed' className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-success hover:text-success-content shadow-sm" onClick={closeDrawer} >
                 <FaCheck className="text-lg" /> Completed Tasks
               </div>
             </li>
           </Link>
 
-          <Link to={'/'} onClick={closeDrawer}>
+          <Link to={'/'}>
             <li>
-              <div className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-warning hover:text-warning-content shadow-sm">
+              <div id='pending' className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-warning hover:text-warning-content shadow-sm" onClick={closeDrawer}>
                 <MdOutlinePending className="text-lg" /> Pending Tasks
               </div>
             </li>
           </Link>
 
-          <Link to={'/'} onClick={closeDrawer}>
+          <Link to={'/'}>
             <li>
-              <div className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-error hover:text-error-content shadow-sm">
+              <div id='important' className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-error hover:text-error-content shadow-sm" onClick={closeDrawer}>
                 <MdNotificationImportant className="text-lg" /> Important Tasks
               </div>
             </li>
