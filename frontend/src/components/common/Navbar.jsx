@@ -4,12 +4,21 @@ import { Link } from 'react-router-dom';
 import { LuListTodo } from "react-icons/lu";
 import { MdOutlinePending,MdNotificationImportant } from "react-icons/md";
 import { FaCheck } from "react-icons/fa";
+import { useState, useEffect } from 'react';
 
 const Navbar = () => {
 
   const closeDrawer = () => {
     document.getElementById('my-drawer-3').checked = false;
   };
+
+  const [isdark, setIsdark] = useState(
+    JSON.parse(localStorage.getItem('isdark'))
+  );
+  useEffect(() => {
+    localStorage.setItem('isdark', JSON.stringify(isdark));
+    document.documentElement.setAttribute('data-theme', isdark ? 'black' : 'retro');
+  }, [isdark]);
 
   return (
     <div className='drawer'>
@@ -31,7 +40,7 @@ const Navbar = () => {
         </div>
 
         <div className='navbar-end space-x-5'>
-          <input type="checkbox" value="retro" className="toggle theme-controller" />
+          <input type="checkbox" value={isdark? 'black': 'retro'} checked={!isdark} onClick={() => setIsdark(!isdark)} className="toggle theme-controller" />
           <div className="avatar cursor-pointer dropdown relative">
             <div tabIndex={0} role="button" className="ring-primary ring-offset-base-100 w-9 rounded-full ring-2 ring-offset-2">
               <img src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
