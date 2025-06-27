@@ -54,7 +54,7 @@ const Navbar = () => {
           <TaskMateLogo className="fill-primary-content  mb-6" textColor='text-secondary' />
 
           {/* Menu Items */}
-          <Link to={'/all'} onClick={closeDrawer}>
+          <Link to={'/'} onClick={closeDrawer}>
             <li>
               <div className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-primary hover:text-primary-content shadow-sm">
                 <LuListTodo className="text-lg" /> All Tasks
@@ -62,7 +62,7 @@ const Navbar = () => {
             </li>
           </Link>
 
-          <Link to={'/completed'} onClick={closeDrawer}>
+          <Link to={'/'} onClick={closeDrawer}>
             <li>
               <div className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-success hover:text-success-content shadow-sm">
                 <FaCheck className="text-lg" /> Completed Tasks
@@ -70,7 +70,7 @@ const Navbar = () => {
             </li>
           </Link>
 
-          <Link to={'/pending'} onClick={closeDrawer}>
+          <Link to={'/'} onClick={closeDrawer}>
             <li>
               <div className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-warning hover:text-warning-content shadow-sm">
                 <MdOutlinePending className="text-lg" /> Pending Tasks
@@ -78,7 +78,7 @@ const Navbar = () => {
             </li>
           </Link>
 
-          <Link to={'/important'} onClick={closeDrawer}>
+          <Link to={'/'} onClick={closeDrawer}>
             <li>
               <div className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-error hover:text-error-content shadow-sm">
                 <MdNotificationImportant className="text-lg" /> Important Tasks

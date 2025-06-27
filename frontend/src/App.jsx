@@ -7,6 +7,7 @@ import LoginPage from "./pages/auth/LogIn/LoginPage.jsx";
 import SignupPage from "./pages/auth/SignUp/SignUpPage.jsx";
 import ProfilePage from "./pages/profile/ProfilePage.jsx";
 import ProfileBannerDoodle from "./components/svgs/PlaceholderBanner.jsx";
+import { Bounce } from "react-toastify";
 
 function App() {
   return (
@@ -19,11 +20,23 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/:mode" element={<HomePage />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
         </Routes>
-        <ToastContainer />
+        <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+          transition={Bounce}
+          />
       </div>
     </div>
   );
