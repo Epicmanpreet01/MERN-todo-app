@@ -101,7 +101,7 @@ const ProfilePage = () => {
             <div className="stat">
               <div className="stat-title">Completed Tasks</div>
               <div className="stat-value">{completedTasks}</div>
-              <div className="stat-desc"> Completion rate {(completedTasks / totalTasks) * 100}%</div>
+              <div className="stat-desc"> Completion rate {((completedTasks / totalTasks) * 100) || '0'}%</div>
             </div>
 
             <div className="stat">
